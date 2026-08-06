@@ -244,7 +244,7 @@ export function activate(context: vscode.ExtensionContext): void {
           reloadCatalog();
           await afterRouterAction(result, BYOK_RESTART_MESSAGE, true);
           await vscode.commands.executeCommand(
-            "workbench.view.extension.vansClassroomInstall",
+            "workbench.view.extension.pegasiClassroomInstall",
           );
         })();
       },

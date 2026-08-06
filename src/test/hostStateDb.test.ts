@@ -35,8 +35,8 @@ describe("hostStateDb keys", () => {
       "secret://chat.lm.secret.-7a55c1a5",
     );
     assert.equal(
-      extensionSecretStorageKey("vans-coding.vans-classroom-install", CLASSROOM_CHAT_LM_SECRET_KEY),
-      'secret://{"extensionId":"vans-coding.vans-classroom-install","key":"chat.lm.secret.-7a55c1a5"}',
+      extensionSecretStorageKey("vans-coding.pegasi-classroom-install", CLASSROOM_CHAT_LM_SECRET_KEY),
+      'secret://{"extensionId":"vans-coding.pegasi-classroom-install","key":"chat.lm.secret.-7a55c1a5"}',
     );
   });
 });
@@ -46,7 +46,7 @@ describe("promoteExtensionSecretToHost", () => {
     const dbPath = makeTempDb();
     const blob = serializeSafeStorageBuffer(Buffer.from("v10fake"));
     const extKey = extensionSecretStorageKey(
-      "vans-coding.vans-classroom-install",
+      "vans-coding.pegasi-classroom-install",
       CLASSROOM_CHAT_LM_SECRET_KEY,
     );
     const db = new DatabaseSync(dbPath);
@@ -55,7 +55,7 @@ describe("promoteExtensionSecretToHost", () => {
 
     const { hostStorageKey } = await promoteExtensionSecretToHost({
       stateDbPath: dbPath,
-      extensionId: "vans-coding.vans-classroom-install",
+      extensionId: "vans-coding.pegasi-classroom-install",
     });
 
     const read = new DatabaseSync(dbPath);
@@ -90,13 +90,13 @@ describe("ensureHostChatLmSecret", () => {
     const dbPath = makeTempDb();
     const blob = serializeSafeStorageBuffer(Buffer.from("v10later"));
     const extKey = extensionSecretStorageKey(
-      "vans-coding.vans-classroom-install",
+      "vans-coding.pegasi-classroom-install",
       CLASSROOM_CHAT_LM_SECRET_KEY,
     );
     let attempts = 0;
     const { hostStorageKey } = await ensureHostChatLmSecret({
       stateDbPath: dbPath,
-      extensionId: "vans-coding.vans-classroom-install",
+      extensionId: "vans-coding.pegasi-classroom-install",
       plaintext: "vcr_sk_unused",
       sleep: async () => undefined,
       maxAttempts: 5,
@@ -110,7 +110,7 @@ describe("ensureHostChatLmSecret", () => {
         db.close();
         return promoteExtensionSecretToHost({
           stateDbPath: dbPath,
-          extensionId: "vans-coding.vans-classroom-install",
+          extensionId: "vans-coding.pegasi-classroom-install",
         });
       },
       writeDirect: async () => {

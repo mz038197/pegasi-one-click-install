@@ -3,12 +3,12 @@
 維護者操作說明。產品決策見 [ADR 0002](./adr/0002-vs-marketplace-publish.md)。
 
 - **市集**：只上 Visual Studio Marketplace（不上 Open VSX）
-- **身分**：`vans-coding.vans-classroom-install`
+- **身分**：`vans-coding.pegasi-classroom-install`
 - **主路徑**：VS Code 市集；**備援**：GitHub Release 的 `.vsix`（Cursor／離線／急救）
 - **自動發版**：推送符合 `v*` 的 git tag → [`.github/workflows/publish-extension.yml`](../.github/workflows/publish-extension.yml)
 
 市集公開頁（審核通過後）：  
-https://marketplace.visualstudio.com/items?itemName=vans-coding.vans-classroom-install  
+https://marketplace.visualstudio.com/items?itemName=vans-coding.pegasi-classroom-install  
 
 管理頁：  
 https://marketplace.visualstudio.com/manage/publishers/vans-coding

@@ -51,12 +51,12 @@ jobs:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: >
           npx vsce publish
-          --packagePath "vans-classroom-install-${{ steps.version.outputs.version }}.vsix"
+          --packagePath "pegasi-classroom-install-${{ steps.version.outputs.version }}.vsix"
           --readme-path EXTENSION_README.md
           -p "$VSCE_PAT"
 
       - name: Create GitHub Release with VSIX
         uses: softprops/action-gh-release@v2
         with:
-          files: vans-classroom-install-*.vsix
+          files: pegasi-classroom-install-*.vsix
           generate_release_notes: true

@@ -12,11 +12,11 @@ function baseOptions(overrides: Record<string, unknown> = {}) {
   return {
     secrets,
     options: {
-      baseUrl: "https://ai.vanscoding.com",
+      baseUrl: "http://203-71-78-31.nip.io:8000",
       openExternal: async () => true,
       resolveUserDir: () => "/tmp/Code/User",
       uriScheme: "vscode",
-      extensionId: "vans-coding.vans-classroom-install",
+      extensionId: "vans-coding.pegasi-classroom-install",
       secretStore: {
         get: async (k: string) => secrets.get(k),
         store: async (k: string, v: string) => {

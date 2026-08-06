@@ -1,12 +1,12 @@
-# 凡思課堂安裝
+# Pegasi 課堂安裝
 
 課堂側邊欄：檢查／安裝環境工具（uv／git／Node），並一鍵執行本課 `classroom-installs.yaml` 中的安裝動作。
 
 ## 安裝（VS Code）
 
-1. 在 VS Code 擴充功能市集搜尋「凡思課堂安裝」，或依 id：`vans-coding.vans-classroom-install`。
+1. 在 VS Code 擴充功能市集搜尋「Pegasi 課堂安裝」，或依 id：`vans-coding.pegasi-classroom-install`。
 2. 安裝後重新載入視窗（若提示）。
-3. 於活動列開啟「凡思課堂安裝」。
+3. 於活動列開啟「Pegasi 課堂安裝」。
 
 市集安裝後，VS Code 可能自動更新到較新版本；開課前請確認版本符合預期。
 

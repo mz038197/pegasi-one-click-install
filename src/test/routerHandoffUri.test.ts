@@ -6,7 +6,7 @@ describe("parseHandoffToken", () => {
   it("reads token from vscode handoff URI", () => {
     const token =
       "n1:42:1700000000:abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789";
-    const uri = `vscode://vans-coding.vans-classroom-install/handoff?token=${encodeURIComponent(token)}`;
+    const uri = `vscode://vans-coding.pegasi-classroom-install/handoff?token=${encodeURIComponent(token)}`;
     assert.equal(parseHandoffToken(uri), token);
   });
 

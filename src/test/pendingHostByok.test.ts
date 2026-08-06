@@ -10,7 +10,7 @@ describe("finalizePendingHostByok", () => {
     let cleared = false;
     let ensured = false;
     const pending: PendingHostByok = {
-      extensionId: "vans-coding.vans-classroom-install",
+      extensionId: "vans-coding.pegasi-classroom-install",
       userDir: "/tmp/Code/User",
     };
     const result = await finalizePendingHostByok({

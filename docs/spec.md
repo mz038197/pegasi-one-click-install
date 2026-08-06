@@ -29,7 +29,7 @@
 - 環境工具：uv、git、Node.js（偵測、安裝、重新檢查、重新安裝／修復）  
 - 本課動作：載入 Session／本機 Course Catalog，執行其中的整段 `command`  
 - 執行前確認完整命令；公開 `git+https` repo 假設  
-- 發佈：VS Code 以 **Visual Studio Marketplace** 為主（`vans-coding.vans-classroom-install`）；**VSIX 側載**為備援（Cursor／離線／急救）。不上架 Open VSX。見 [ADR 0002](./adr/0002-vs-marketplace-publish.md)。
+- 發佈：VS Code 以 **Visual Studio Marketplace** 為主（`vans-coding.pegasi-classroom-install`）；**VSIX 側載**為備援（Cursor／離線／急救）。不上架 Open VSX。見 [ADR 0002](./adr/0002-vs-marketplace-publish.md)。
 
 ### 非範圍（MVP）
 
@@ -48,7 +48,7 @@
 
 - 校園網／proxy／離線降級  
 - 多根工作區要以哪個資料夾為準  
-- 市集分類／關鍵字微調（身分、繁中文案、圖示已定：id `vans-coding.vans-classroom-install`）
+- 市集分類／關鍵字微調（身分、繁中文案、圖示已定：id `vans-coding.pegasi-classroom-install`）
 - 介面僅繁中或可英  
 - 多筆動作的部分成功／重試產品文案細節（單筆重試按鈕已在 UI 草圖中）  
 

@@ -1,13 +1,13 @@
 {
-  "name": "vans-classroom-install",
-  "displayName": "凡思課堂安裝",
+  "name": "pegasi-classroom-install",
+  "displayName": "Pegasi 課堂安裝",
   "description": "課堂側邊欄：兌換邀請碼與 BYOK、檢查／安裝環境工具，並一鍵執行本課安裝動作。",
   "version": "0.2.0",
   "publisher": "vans-coding",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mz038197/classroom-one-click-install.git"
+    "url": "https://github.com/mz038197/pegasi-one-click-install.git"
   },
   "icon": "media/icon.png",
   "engines": {
@@ -17,50 +17,50 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:vansClassroomInstall.sidebar",
+    "onView:pegasiClassroomInstall.sidebar",
     "onUri"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
-      "title": "凡思課堂安裝",
+      "title": "Pegasi 課堂安裝",
       "properties": {
-        "vansClassroomInstall.routerBaseUrl": {
+        "pegasiClassroomInstall.routerBaseUrl": {
           "type": "string",
-          "default": "https://ai.vanscoding.com",
-          "description": "Vans Coding Router 公開網址（進階；一般課堂不必改）"
+          "default": "http://203-71-78-31.nip.io:8000",
+          "description": "Pegasi Router 公開網址（進階；一般課堂不必改）"
         }
       }
     },
     "commands": [
       {
-        "command": "vansClassroomInstall.runInstallAction",
+        "command": "pegasiClassroomInstall.runInstallAction",
         "title": "執行本課安裝動作"
       },
       {
-        "command": "vansClassroomInstall.recheckEnvironment",
+        "command": "pegasiClassroomInstall.recheckEnvironment",
         "title": "重新檢查環境工具"
       },
       {
-        "command": "vansClassroomInstall.installEnvironmentTool",
+        "command": "pegasiClassroomInstall.installEnvironmentTool",
         "title": "安裝／修復環境工具"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "vansClassroomInstall",
-          "title": "凡思課堂安裝",
+          "id": "pegasiClassroomInstall",
+          "title": "Pegasi 課堂安裝",
           "icon": "media/icon.svg"
         }
       ]
     },
     "views": {
-      "vansClassroomInstall": [
+      "pegasiClassroomInstall": [
         {
           "type": "webview",
-          "id": "vansClassroomInstall.sidebar",
-          "name": "凡思課堂安裝"
+          "id": "pegasiClassroomInstall.sidebar",
+          "name": "Pegasi 課堂安裝"
         }
       ]
     }

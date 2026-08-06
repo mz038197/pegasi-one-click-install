@@ -7,7 +7,7 @@ import { buildSidebarViewModel } from "./sidebarViewModel";
 import { getSidebarWebviewHtml } from "./sidebarWebviewHtml";
 import { workspaceDisplayName } from "./workspaceDisplayName";
 
-const VIEW_TYPE = "vansClassroomInstall.sidebar";
+const VIEW_TYPE = "pegasiClassroomInstall.sidebar";
 
 type WebviewInbound =
   | { type: "ready" }

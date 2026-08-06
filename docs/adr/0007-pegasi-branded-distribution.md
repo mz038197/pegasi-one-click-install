@@ -1,0 +1,3 @@
+# Pegasi as a branded distribution with vans upstream
+
+We publish Pegasi classroom install as its own Marketplace／VSIX identity (`vans-coding.pegasi-classroom-install`) while keeping publisher `vans-coding`, instead of asking Pegasi students to reuse the Vans extension and change `routerBaseUrl`. The engine (Router／Environment／Course Lanes, catalog contract) stays shared: this repo’s `upstream` is `classroom-one-click-install`, and brand differences stay in display name, icons, accent color, contribution ids, and the default Pegasi Router URL. Rejected: Template-only copy with no sync, a second incompatible client, and a separate Microsoft publisher for this phase.

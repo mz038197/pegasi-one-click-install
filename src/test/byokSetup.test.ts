@@ -22,7 +22,7 @@ describe("mergeByokConfig", () => {
           {
             id: "ollama_cloud@demo:cloud",
             name: "demo",
-            url: "https://ai.vanscoding.com/v1",
+            url: "http://203-71-78-31.nip.io:8000/v1",
           },
         ],
       },
@@ -42,7 +42,7 @@ describe("mergeByokConfig", () => {
         name: "VCRouter",
         vendor: "customendpoint",
         apiKey: "old",
-        models: [{ id: "ollama_cloud@demo:cloud", name: "demo", url: "https://ai.vanscoding.com/v1" }],
+        models: [{ id: "ollama_cloud@demo:cloud", name: "demo", url: "http://203-71-78-31.nip.io:8000/v1" }],
       },
     ];
     const template = [
@@ -54,7 +54,7 @@ describe("mergeByokConfig", () => {
           {
             id: "ollama_cloud@demo:cloud",
             name: "demo",
-            url: "https://ai.vanscoding.com/v1",
+            url: "http://203-71-78-31.nip.io:8000/v1",
             toolCalling: true,
           },
         ],

@@ -17,7 +17,7 @@ export type SidebarShell = {
 /** 側邊欄殼：Router Lane → Environment Lane → Course Lane。 */
 export function buildSidebarShell(workspaceName: string): SidebarShell {
   return {
-    title: "凡思課堂安裝",
+    title: "Pegasi 課堂安裝",
     workspaceLabel: `工作區：${workspaceName}`,
     lanes: [
       {

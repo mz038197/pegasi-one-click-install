@@ -3,7 +3,7 @@ import type { ChatLanguageModelProvider } from "./byokSetup";
 /**
  * Stable Host secret key for Classroom API Key (VS Code Language Models).
  * Id suffix must be hex (optionally signed), matching VS Code's
- * `hash(uuid).toString(16)` shape — non-hex ids like `vans-classroom` are not resolved.
+ * `hash(uuid).toString(16)` shape — non-hex ids like `pegasi-classroom` are not resolved.
  */
 export const CLASSROOM_CHAT_LM_SECRET_KEY = "chat.lm.secret.-7a55c1a5";
 

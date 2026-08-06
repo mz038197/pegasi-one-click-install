@@ -1,8 +1,17 @@
-# Classroom One-Click Install
+# Pegasi Classroom Install
 
-課堂用編輯器擴充功能：學生點選項目以完成環境工具或本課安裝動作，並可在擴充內完成 router 邀請兌換與 BYOK 設定。此檔只記領域用語。
+課堂用編輯器擴充功能（Pegasi 換皮發行）：學生點選項目以完成環境工具或本課安裝動作，並可在擴充內完成 router 邀請兌換與 BYOK 設定。此檔只記領域用語。引擎行為與凡思發行共用；預設連 **pegasi_router**。
 
 ## Language
+
+**Branded Distribution**:
+同一套課堂安裝產品的市集／VSIX 發行身分；Pegasi 與凡思為兩個 Branded Distribution。差異限於顯示名稱、圖示、強調色、extension id 與預設 `routerBaseUrl`；Install Action／三條 Lane／Router 契約相同。功能變更以凡思 repo 為 upstream 合併進來。
+_Avoid_: 為 Pegasi 另寫一套 catalog／redeem client, 把品牌差異散進業務邏輯大檔
+
+**Pegasi Distribution**:
+publisher 仍為 `vans-coding`、extension id 為 `vans-coding.pegasi-classroom-install` 的 Branded Distribution；預設 Router 為課堂自架的 `pegasi_router`。
+_Avoid_: 與凡思共用同一個 extension id, 要求學生手動改 `routerBaseUrl` 才能上 Pegasi 課（主路徑）
+
 
 **Install Action**:
 老師策展、學生可點的一筆安裝動作；含顯示名稱、必填的 Action Kind，以及背後要執行的指令意圖（例如 `uv add` 或 `uvx`），不必然等於 PyPI 套件短名。本期不另做「下載檔案進專案」的專用動作。

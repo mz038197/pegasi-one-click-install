@@ -9,12 +9,12 @@ export function getSidebarWebviewHtml(
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${cspSource} 'unsafe-inline'; script-src ${cspSource}; img-src ${cspSource} https: data:;" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>凡思課堂安裝</title>
+  <title>Pegasi 課堂安裝</title>
   <style>
     :root {
-      --vans-accent: #3d9a5f;
-      --vans-accent-hover: #2f7d4c;
-      --vans-accent-muted: color-mix(in srgb, var(--vans-accent) 18%, transparent);
+      --pegasi-accent: #007070;
+      --pegasi-accent-hover: #008a8a;
+      --pegasi-accent-muted: color-mix(in srgb, var(--pegasi-accent) 18%, transparent);
       --brand-gradient-a: #007070;
       --brand-gradient-b: #009999;
       --brand-gradient-c: #f8c000;
@@ -136,7 +136,7 @@ export function getSidebarWebviewHtml(
       padding: 4px 8px;
       border-radius: 999px;
       font-size: 11px;
-      background: var(--vans-accent-muted);
+      background: var(--pegasi-accent-muted);
       color: var(--vscode-foreground);
     }
     .badge.bad {
@@ -148,7 +148,7 @@ export function getSidebarWebviewHtml(
       border-radius: 8px;
       font-size: 11px;
       background: var(--vscode-inputValidation-infoBackground, rgba(127,127,127,.12));
-      border-left: 3px solid var(--vans-accent);
+      border-left: 3px solid var(--pegasi-accent);
     }
     .empty { border-left-color: var(--warn); }
     .card {
@@ -184,8 +184,8 @@ export function getSidebarWebviewHtml(
       border-radius: 999px;
       font-size: 10px;
       font-weight: 600;
-      border: 1px solid color-mix(in srgb, var(--vans-accent) 40%, transparent);
-      background: var(--vans-accent-muted);
+      border: 1px solid color-mix(in srgb, var(--pegasi-accent) 40%, transparent);
+      background: var(--pegasi-accent-muted);
       white-space: nowrap;
     }
     .card-desc, .card-detail {
@@ -210,8 +210,8 @@ export function getSidebarWebviewHtml(
       border-color: color-mix(in srgb, var(--warn) 35%, transparent);
     }
     .status.installing, .status.running, .status.busy {
-      color: var(--vans-accent);
-      border-color: color-mix(in srgb, var(--vans-accent) 40%, transparent);
+      color: var(--pegasi-accent);
+      border-color: color-mix(in srgb, var(--pegasi-accent) 40%, transparent);
     }
     .status.idle { opacity: 0.75; }
     .row-actions { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -228,10 +228,10 @@ export function getSidebarWebviewHtml(
       cursor: not-allowed;
     }
     button.primary {
-      background: var(--vans-accent);
+      background: var(--pegasi-accent);
       color: #fff;
     }
-    button.primary:hover:not(:disabled) { background: var(--vans-accent-hover); }
+    button.primary:hover:not(:disabled) { background: var(--pegasi-accent-hover); }
     button.secondary {
       background: transparent;
       color: var(--vscode-foreground);

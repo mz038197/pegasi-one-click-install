@@ -12,7 +12,7 @@ describe("writeByokFile", () => {
           name: "VCRouter",
           vendor: "customendpoint",
           apiKey: "",
-          models: [{ id: "m1", name: "m1", url: "https://ai.vanscoding.com/v1" }],
+          models: [{ id: "m1", name: "m1", url: "http://203-71-78-31.nip.io:8000/v1" }],
         },
       ],
       apiKey: "${input:chat.lm.secret.-7a55c1a5}",

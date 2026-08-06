@@ -87,9 +87,9 @@ export function createRouterPortalClient(baseUrl: string): RouterPortalClient {
 export function defaultRouterBaseUrl(
   getConfig: (key: string) => unknown = () => undefined,
 ): string {
-  const configured = getConfig("vansClassroomInstall.routerBaseUrl");
+  const configured = getConfig("pegasiClassroomInstall.routerBaseUrl");
   if (typeof configured === "string" && configured.trim()) {
     return configured.trim().replace(/\/+$/, "");
   }
-  return "https://ai.vanscoding.com";
+  return "http://203-71-78-31.nip.io:8000";
 }

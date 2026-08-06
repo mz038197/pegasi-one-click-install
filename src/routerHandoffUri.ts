@@ -26,7 +26,7 @@ export function parseHandoffToken(input: string): string | undefined {
     const path = uri.pathname.replace(/^\/\//, "/");
     const pathOk =
       path.endsWith(HANDOFF_PATH) ||
-      path.includes(".vans-classroom-install/handoff");
+      path.includes(".pegasi-classroom-install/handoff");
     if (!pathOk && !raw.includes("/handoff?")) {
       return undefined;
     }

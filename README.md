@@ -1,8 +1,10 @@
-# vans-classroom-install（凡思課堂安裝）
+# pegasi-classroom-install（Pegasi 課堂安裝）
 
 課堂用 VS Code／Cursor 擴充功能：學生在側邊欄一鍵完成環境工具（uv／git／Node）與老師策展的本課安裝動作（uv add／uvx）。
 
-擴充功能 id：`vans-coding.vans-classroom-install`。
+擴充功能 id：`vans-coding.pegasi-classroom-install`。
+
+本 repo 是 Pegasi **Branded Distribution**；功能引擎以凡思 [`classroom-one-click-install`](https://github.com/mz038197/classroom-one-click-install) 為 `upstream`（`git fetch upstream` → merge `upstream/main`）。
 
 - **規格（開工用）**：[`docs/spec.md`](./docs/spec.md)
 - **實作票（MVP）**：[`.scratch/mvp-extension/`](./.scratch/mvp-extension/README.md)
@@ -14,7 +16,7 @@
 
 ## 課堂使用（VS Code：市集為主）
 
-**主路徑**：學生在 **VS Code** 擴充功能市集搜尋「凡思課堂安裝」（id：`vans-coding.vans-classroom-install`）並安裝。
+**主路徑**：學生在 **VS Code** 擴充功能市集搜尋「Pegasi 課堂安裝」（id：`vans-coding.pegasi-classroom-install`）並安裝。
 
 **備援**：當市集不可用、需釘某一包、或使用 Cursor 時，改走下方 **VSIX 側載**。
 
@@ -27,7 +29,7 @@
 3. Environment Lane（uv／git／Node）：未就緒就「安裝」，裝完依提示**重開終端**再「重新檢查」。
 4. Course Lane 列出本課動作；點選 → 確認完整 command → 在整合終端機執行。
 
-預設 Router：`https://ai.vanscoding.com`（設定 `vansClassroomInstall.routerBaseUrl` 可改）。Portal 網頁路徑為備援。
+預設 Router：`http://203-71-78-31.nip.io:8000`（設定 `pegasiClassroomInstall.routerBaseUrl` 可改）。Portal 網頁路徑為備援。
 
 ## 備援：VSIX 側載
 
@@ -43,7 +45,7 @@ npm install
 npm run package
 ```
 
-產物名稱為 `vans-classroom-install-<version>.vsix`（`*.vsix` 已列在 `.gitignore`，請自行發放，不必提交）。將該檔與 `samples/classroom-installs.yaml`（或本課自訂 catalog）一併交給學生。
+產物名稱為 `pegasi-classroom-install-<version>.vsix`（`*.vsix` 已列在 `.gitignore`，請自行發放，不必提交）。將該檔與 `samples/classroom-installs.yaml`（或本課自訂 catalog）一併交給學生。
 
 ### 安裝擴充功能
 
@@ -51,7 +53,7 @@ npm run package
 2. 在 **VS Code**：命令面板 → `Extensions: Install from VSIX…` → 選檔。  
    在 **Cursor**：同樣走「從 VSIX 安裝」；若介面用語不同，到 Extensions 視圖找 Install from VSIX。
 3. 重新載入視窗（若提示）。
-4. 活動列應出現「凡思課堂安裝」。
+4. 活動列應出現「Pegasi 課堂安裝」。
 
 ### Cursor 相容
 
@@ -72,6 +74,6 @@ npm run compile
 npm test
 ```
 
-在 VS Code／Cursor 按 F5（`Run Extension`）開 Extension Development Host；活動列應出現「凡思課堂安裝」側邊欄（Webview：Environment Lane 在上、Course Lane 在下）。
+在 VS Code／Cursor 按 F5（`Run Extension`）開 Extension Development Host；活動列應出現「Pegasi 課堂安裝」側邊欄（Webview：Environment Lane 在上、Course Lane 在下）。
 
 工作區根目錄放置 `classroom-installs.yaml` 後，Course Lane 會列出本課 Install Action；點選會先確認完整 command，再於整合終端機執行。
