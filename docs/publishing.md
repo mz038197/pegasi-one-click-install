@@ -46,16 +46,16 @@ https://marketplace.visualstudio.com/manage/publishers/vans-coding
 
 ### 1.4 寫入 GitHub secret
 
-在有 `gh` 登入、且對 repo 有 admin 權限的本機終端：
+同一 publisher `vans-coding` 可重用凡思 repo 的 PAT（Marketplace Manage）。在有 `gh` 登入、且對本 repo 有 admin 權限的本機終端：
 
 ```powershell
-gh secret set VSCE_PAT --repo mz038197/classroom-one-click-install
+gh secret set VSCE_PAT --repo mz038197/pegasi-one-click-install
 ```
 
 貼上 PAT 後 Enter。確認：
 
 ```powershell
-gh secret list --repo mz038197/classroom-one-click-install
+gh secret list --repo mz038197/pegasi-one-click-install
 ```
 
 應看到 `VSCE_PAT`。可選本機驗證（仍勿把 token 貼給他人）：
@@ -97,7 +97,7 @@ git push origin v0.1.1
 
 4. 驗收：
    - 市集／VS Code 擴充功能可裝到新版本
-   - https://github.com/mz038197/classroom-one-click-install/releases 有對應 tag 與 `.vsix`
+   - https://github.com/mz038197/pegasi-one-click-install/releases 有對應 tag 與 `.vsix`
 
 **不要**對已發過的同一個 `version`／tag 再 publish 一次（市集會拒同一版重傳）。要修 bug 就 bump version。
 
@@ -115,7 +115,7 @@ git push origin v0.1.1
 
 1. 到 `https://dev.azure.com/ORG/_usersSettings/tokens` **Revoke** 舊 token（可選）。
 2. 依「1.3」建新 PAT（同樣：All accessible organizations + Marketplace Manage）。
-3. 再執行一次 `gh secret set VSCE_PAT --repo mz038197/classroom-one-click-install`（覆寫 secret）。
+3. 再執行一次 `gh secret set VSCE_PAT --repo mz038197/pegasi-one-click-install`（覆寫 secret）。
 4. 用 `vsce verify-pat` 或下一輪 `v*` tag 驗證 Actions。
 
 ---
