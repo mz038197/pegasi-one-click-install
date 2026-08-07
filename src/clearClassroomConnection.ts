@@ -9,7 +9,7 @@ import {
 import { deleteHostChatLmSecret } from "./hostStateDb";
 
 /**
- * Clear Classroom Connection: remove VCRouter from models JSON, Host secret row,
+ * Clear Classroom Connection: remove Classroom Chat Provider from models JSON, Host secret row,
  * and extension-scoped secrets. Does not touch other providers.
  */
 export async function clearClassroomConnection(options: {

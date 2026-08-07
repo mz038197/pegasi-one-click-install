@@ -10,6 +10,7 @@ import { isPlainClassroomApiKey } from "./hostLmSecret";
 import { ensureHostChatLmSecret, hostStateDbPath } from "./hostStateDb";
 import type { RouterPortalClient } from "./routerPortalClient";
 import { parseHandoffToken } from "./routerHandoffUri";
+import { selectClassroomChatProviderHint } from "./studentCopy";
 import { writeByokFile } from "./writeByokFile";
 
 export type RouterLaneStatus =
@@ -228,7 +229,7 @@ export class RouterLaneService {
         undefined;
       this.expiresAt = redeemed.session.expires_at;
       this.status = "ready";
-      this.detail = `已完成 BYOK 設定（${target}）。請按右下角「重新啟動」，然後選 VCRouter 模型（勿只重載視窗）。`;
+      this.detail = `已完成 BYOK 設定（${target}）。請按右下角「重新啟動」，然後${selectClassroomChatProviderHint()}；勿只重載視窗。`;
       this.emit();
       return { needsReload: true };
     } catch (err) {

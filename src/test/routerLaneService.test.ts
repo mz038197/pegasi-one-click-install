@@ -83,6 +83,8 @@ describe("RouterLaneService", () => {
     assert.equal(result.needsReload, true);
     assert.equal(lane.getView().canClear, true);
     assert.match(lane.getView().detail, /BYOK/);
+    assert.match(lane.getView().detail, /選課堂已設定的模型（清單裡的 VCRouter）/);
+    assert.doesNotMatch(lane.getView().detail, /Pegasi Router/);
   });
 
   it("blocks Cursor host without redeeming", async () => {

@@ -32,11 +32,14 @@ import {
   RUN_INSTALL_ACTION_COMMAND,
 } from "./sidebarCommands";
 import { SidebarWebviewProvider } from "./sidebarWebviewProvider";
+import {
+  clearClassroomConnectionConfirmMessage,
+  selectClassroomChatProviderHint,
+} from "./studentCopy";
 
 const API_KEY_SECRET = "classroomApiKey";
 
-const BYOK_RESTART_MESSAGE =
-  "BYOK 已寫入。請重新啟動 VS Code（勿只按重載視窗），再開啟後選 VCRouter 模型。";
+const BYOK_RESTART_MESSAGE = `BYOK 已寫入。請重新啟動 VS Code（勿只按重載視窗），再開啟後${selectClassroomChatProviderHint()}。`;
 const CLEAR_RESTART_MESSAGE =
   "已清除課堂連線。請重新啟動 VS Code，變更才會穩定生效。";
 const RESTART_ACTION = "重新啟動";
@@ -150,7 +153,7 @@ export function activate(context: vscode.ExtensionContext): void {
       },
       routerClear: async () => {
         const confirm = await vscode.window.showWarningMessage(
-          "確定清除課堂連線？將移除 VCRouter 與本機 Classroom API Key，其他模型設定不受影響。",
+          clearClassroomConnectionConfirmMessage(),
           { modal: true },
           "清除",
         );
@@ -291,7 +294,7 @@ export function activate(context: vscode.ExtensionContext): void {
     });
     if (finalized === "wrote") {
       void vscode.window.showInformationMessage(
-        "已在啟動時寫入 Host Classroom API Key。請選 VCRouter 模型試試。",
+        `已在啟動時寫入 Host Classroom API Key。請${selectClassroomChatProviderHint()}試試。`,
       );
     }
   })();
