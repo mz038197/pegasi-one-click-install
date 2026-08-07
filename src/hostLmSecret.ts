@@ -22,10 +22,19 @@ export function isPlainClassroomApiKey(value: string | undefined): boolean {
   );
 }
 
-export const VCROUTER_PROVIDER_MATCH = {
-  name: "VCRouter",
+/** Classroom Chat Provider match — Pegasi Distribution uses Pegasi Router as `name`. */
+export const CLASSROOM_CHAT_PROVIDER_MATCH = {
+  name: "Pegasi Router",
   vendor: "customendpoint",
 } as const;
+
+/** Force every template provider's `name` to the Classroom Chat Provider name. */
+export function brandClassroomChatProviderTemplate(
+  template: ChatLanguageModelProvider[],
+  name: string = CLASSROOM_CHAT_PROVIDER_MATCH.name,
+): ChatLanguageModelProvider[] {
+  return template.map((provider) => ({ ...provider, name }));
+}
 
 export function applyHostSecretRefToProviders(
   providers: ChatLanguageModelProvider[],

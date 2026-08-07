@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   CLASSROOM_CHAT_LM_SECRET_KEY,
+  CLASSROOM_CHAT_PROVIDER_MATCH,
   applyHostSecretRefToProviders,
+  brandClassroomChatProviderTemplate,
   isChatLmSecretInputRef,
   isPlainClassroomApiKey,
   isUnsupportedByokHost,
@@ -39,9 +41,13 @@ describe("applyHostSecretRefToProviders", () => {
     const providers = applyHostSecretRefToProviders(
       [
         { name: "OpenRouter", vendor: "openrouter", apiKey: "keep" },
-        { name: "VCRouter", vendor: "customendpoint", apiKey: "vcr_sk_old" },
+        {
+          name: "Pegasi Router",
+          vendor: "customendpoint",
+          apiKey: "vcr_sk_old",
+        },
       ],
-      { name: "VCRouter", vendor: "customendpoint" },
+      CLASSROOM_CHAT_PROVIDER_MATCH,
       "${input:chat.lm.secret.-7a55c1a5}",
     );
     assert.equal(providers[0]?.apiKey, "keep");
@@ -52,17 +58,29 @@ describe("applyHostSecretRefToProviders", () => {
   });
 });
 
+describe("brandClassroomChatProviderTemplate", () => {
+  it("rewrites template provider names to Pegasi Router", () => {
+    const branded = brandClassroomChatProviderTemplate([
+      { name: "VCRouter", vendor: "customendpoint", apiKey: "" },
+    ]);
+    assert.equal(branded[0]?.name, "Pegasi Router");
+    assert.equal(branded[0]?.vendor, "customendpoint");
+  });
+});
+
 describe("removeMatchingProviders / isUnsupportedByokHost", () => {
   it("drops only the matched provider", () => {
     const next = removeMatchingProviders(
       [
         { name: "OpenRouter", vendor: "openrouter" },
+        { name: "Pegasi Router", vendor: "customendpoint" },
         { name: "VCRouter", vendor: "customendpoint" },
       ],
-      { name: "VCRouter", vendor: "customendpoint" },
+      CLASSROOM_CHAT_PROVIDER_MATCH,
     );
-    assert.equal(next.length, 1);
+    assert.equal(next.length, 2);
     assert.equal(next[0]?.name, "OpenRouter");
+    assert.equal(next[1]?.name, "VCRouter");
   });
 
   it("treats Cursor as unsupported BYOK host", () => {

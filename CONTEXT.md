@@ -34,12 +34,12 @@ _Avoid_: 巢狀 `groups`（已撤回）, 應用內建唯一清單, 多份並行�
 _Avoid_: 只實作單一 router 部署, 兩套不相容的 catalog API／YAML 形狀
 
 **Pegasi Router**:
-Pegasi Distribution 對學生／設定說明使用的 **Router** 後端稱呼；指 `routerBaseUrl` 預設連上的 `pegasi_router` 實作。不是 Host 語言模型清單裡的 provider `name`，也不是凡思發行的 Router 顯示名。談公開網址、課堂連線、兌換時用此名；談「選模型／清除 provider」不用此名。
-_Avoid_: 把 Chat LM provider 條目叫 Pegasi Router, 用 Pegasi Router 兼指 BYOK 寫入的模型提供者, 要求凡思發行改用此顯示名, 在選模型提示裡顯示 Pegasi Router 卻寫入另一個 provider `name`
+依語境兼指兩義：(1) Pegasi Distribution 的 **Router** 後端（`routerBaseUrl` → `pegasi_router`）；(2) Classroom Chat Provider 在 Host 語言模型清單上的 `name`。談公開網址／兌換時多指後端；談選模型／清除課堂連線時多指清單上的 provider。凡思發行不使用此顯示名。
+_Avoid_: 假設凡思清單上也叫 Pegasi Router, 用此名兼指 OpenRouter 等其他 provider
 
 **Classroom Chat Provider**:
-BYOK Setup 寫入 Host 語言模型清單、供學生選用的那個 provider 條目；Pegasi Distribution 與其 `name` 字串與凡思引擎相同（目前為 `VCRouter`），不因 Pegasi 品牌另改 `name`。清除課堂連線時依此 `name`（與 vendor）匹配移除。學生可見的「選模型」文案採主句中性＋括號實際 `name`（對得上清單），不寫成 Pegasi Router。Pegasi Distribution 的學生可見字串隨此規則更新；不改匹配邏輯，也不要求凡思發行同步改文案。
-_Avoid_: Pegasi Router（指後端時）, 為 Pegasi 單獨改 provider `name` 卻不處理舊機器遷移, 文案寫 Pegasi Router 但 JSON 仍為另一字串且不說明不一致, 只寫中性詞卻在多個 custom endpoint 並存時不提示清單上的 `name`, 只改 glossary 卻長期留下相反的學生提示
+BYOK Setup 寫入 Host 語言模型清單、供學生選用的那個 provider 條目；Pegasi Distribution 的 `name` 為 **Pegasi Router**（`vendor` 仍為 `customendpoint`）。擴充寫入時強制此 `name`（即使 router 模板仍帶舊名）。清除課堂連線時只匹配並移除此 `name`＋vendor；不主動刪除舊機上可能殘留的 `VCRouter` 列。學生可見「選模型／清除」文案採主句中性＋括號實際 `name`。
+_Avoid_: 清單技術名仍寫 VCRouter 卻文案寫 Pegasi Router, 清除時誤刪學生其他 BYOK, 要求凡思同步改 provider `name`
 
 **Router Lane**:
 側邊欄最上方區塊（學生可見標題「課堂連線」）：學生須先輸入 Invite Code 才能「連線登入」；主路徑為填碼 → Google → 深連結回來後自動兌換並 BYOK Setup。進入「等待登入」（或連線失敗）後才露出一次性貼碼與「貼上並完成連線」，供深連結未跳回時使用；可「重新連線登入」清掉舊手遞重跑。等待期間邀請碼仍可改。可整區收合／展開。Portal 網頁兌換與下載 install 腳本僅為備援。
@@ -73,8 +73,8 @@ _Avoid_: API key, session token, 邀請連結（若指整段 URL）, 把擴充�
 _Avoid_: Portal session, Google token, upstream provider key, 把 key 前綴改名當成 Pegasi Router 命名的一部分, Pegasi 發行拒收 `vcr_sk_…`（未另開契約決策前）
 
 **Clear Classroom Connection**:
-學生主動清除本機課堂連線：刪 Host／擴充內的 Classroom API Key、移除 Classroom Chat Provider，並將 Router Lane 重置為未兌換；不動其他 provider（如 OpenRouter）。確認文案與「選模型」同一套：主句中性＋括號實際 `name`，不寫 Pegasi Router。
-_Avoid_: 只清側邊欄狀態卻留 key, 清掉學生其他 BYOK, 每次兌換換新 secret id 造成堆積, 清除提示寫 Pegasi Router
+學生主動清除本機課堂連線：先刪 Host／擴充內的 Classroom API Key，再移除 Classroom Chat Provider（`name` 為 Pegasi Router），並將 Router Lane 重置為未兌換；不動其他 provider（如 OpenRouter）與舊的 `VCRouter` 殘留列。若本機 state DB 忙碌無法完成，不把內部錯誤原文給學生，引導 Host Full Restart 後再執行一次清除。確認文案與「選模型」同一套：主句中性＋括號實際 `name`。
+_Avoid_: 只清側邊欄狀態卻留 key, 清掉學生其他 BYOK, 每次兌換換新 secret id 造成堆積, 先改 JSON 再刪 key 導致半清, 對學生顯示 database is locked
 
 **Sign-in Handoff**:
 瀏覽器完成 Google 登入後交給擴充的短效、單次證明，僅供立刻兌換 Invite Code；不是長期 Portal session，兌換後即丟棄。主路徑經 `vscode://` 深連結；深連結失敗時以瀏覽器顯示的一次性貼碼交回擴充。URI／貼碼皆不得承載 Classroom API Key。
@@ -85,5 +85,5 @@ _Avoid_: session credential（常駐）, API key in URI, oauth_state cookie, 失
 _Avoid_: 下載並執行 install-vscode-models.cmd（那是 Portal 備援路徑）, 只合併模型卻不處理 key, 明文 Classroom API Key 寫進 `apiKey`, 一次寫入多個編輯器產品路徑, 以擴充內建 template 為唯一來源, 在 Cursor 自動寫 Host secret
 
 **Host Full Restart**:
-完整退出目前 Host 並自動再開同一 Host，使 Host secret／pending BYOK 等需進程重生才穩定的狀態生效；學生可見動作為「重新啟動」。硬承諾：按下後必須回來，不可只關不開卻仍稱重啟。
+完整退出目前 Host 並自動再開同一 Host，使 Host secret／pending BYOK 等需進程重生才穩定的狀態生效；亦用於 Clear Classroom Connection 因本機忙碌失敗後、再試清除之前。學生可見動作為「重新啟動」。硬承諾：按下後必須回來，不可只關不開卻仍稱重啟。
 _Avoid_: Reload Window（重載視窗）, 只執行退出卻不重開, 把「稍後手動重開」當成同等主路徑

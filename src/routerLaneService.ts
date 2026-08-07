@@ -7,10 +7,17 @@ import {
   toChatLmSecretInputRef,
 } from "./hostLmSecret";
 import { isPlainClassroomApiKey } from "./hostLmSecret";
-import { ensureHostChatLmSecret, hostStateDbPath } from "./hostStateDb";
+import {
+  ensureHostChatLmSecret,
+  hostStateDbPath,
+  isHostStateDbBusyError,
+} from "./hostStateDb";
 import type { RouterPortalClient } from "./routerPortalClient";
 import { parseHandoffToken } from "./routerHandoffUri";
-import { selectClassroomChatProviderHint } from "./studentCopy";
+import {
+  clearClassroomConnectionBusyMessage,
+  selectClassroomChatProviderHint,
+} from "./studentCopy";
 import { writeByokFile } from "./writeByokFile";
 
 export type RouterLaneStatus =
@@ -35,6 +42,8 @@ export type RouterLaneView = {
 
 export type RouterLaneActionResult = {
   needsReload: boolean;
+  /** Host Full Restart CTA without treating the action as success. */
+  offerRestart?: boolean;
 };
 
 type OpenExternal = (url: string) => Thenable<boolean>;
@@ -269,8 +278,13 @@ export class RouterLaneService {
       this.emit();
       return { needsReload: true };
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
       this.status = "error";
+      if (isHostStateDbBusyError(err)) {
+        this.detail = clearClassroomConnectionBusyMessage();
+        this.emit();
+        return { needsReload: false, offerRestart: true };
+      }
+      const message = err instanceof Error ? err.message : String(err);
       this.detail = message;
       this.emit();
       return { needsReload: false };

@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import type { ChatLanguageModelProvider } from "./byokSetup";
 import { mergeByokConfig } from "./byokSetup";
 import { chatLanguageModelsPath } from "./editorUserPath";
+import { brandClassroomChatProviderTemplate } from "./hostLmSecret";
 
 export async function writeByokFile(options: {
   userDir: string;
@@ -39,7 +40,8 @@ export async function writeByokFile(options: {
     }
   }
 
-  const merged = mergeByokConfig(existing, options.template, options.apiKey);
+  const template = brandClassroomChatProviderTemplate(options.template);
+  const merged = mergeByokConfig(existing, template, options.apiKey);
   await mkdir(options.userDir);
   await writeFile(target, `${JSON.stringify(merged, null, 2)}\n`);
   return target;

@@ -14,7 +14,7 @@ describe("mergeByokConfig", () => {
     ];
     const template = [
       {
-        name: "VCRouter",
+        name: "Pegasi Router",
         vendor: "customendpoint",
         apiKey: "",
         apiType: "responses",
@@ -30,16 +30,16 @@ describe("mergeByokConfig", () => {
 
     const merged = mergeByokConfig(existing, template, "vcr_sk_test");
     assert.equal(merged.length, 2);
-    const vans = merged.find((p) => p.name === "VCRouter");
-    assert.ok(vans);
-    assert.equal(vans.apiKey, "vcr_sk_test");
+    const classroom = merged.find((p) => p.name === "Pegasi Router");
+    assert.ok(classroom);
+    assert.equal(classroom.apiKey, "vcr_sk_test");
     assert.equal(merged[0]?.apiKey, "keep-me");
   });
 
-  it("updates api key when VCRouter already exists", () => {
+  it("updates api key when Pegasi Router already exists", () => {
     const existing = [
       {
-        name: "VCRouter",
+        name: "Pegasi Router",
         vendor: "customendpoint",
         apiKey: "old",
         models: [{ id: "ollama_cloud@demo:cloud", name: "demo", url: "http://203-71-78-31.nip.io:8000/v1" }],
@@ -47,7 +47,7 @@ describe("mergeByokConfig", () => {
     ];
     const template = [
       {
-        name: "VCRouter",
+        name: "Pegasi Router",
         vendor: "customendpoint",
         apiKey: "",
         models: [
@@ -71,7 +71,7 @@ describe("mergeByokConfig", () => {
 describe("applyApiKeyToTemplate", () => {
   it("sets apiKey on every top-level provider from template family", () => {
     const providers = applyApiKeyToTemplate(
-      [{ name: "VCRouter", vendor: "customendpoint", apiKey: "" }],
+      [{ name: "Pegasi Router", vendor: "customendpoint", apiKey: "" }],
       "vcr_sk_x",
     );
     assert.equal(providers[0]?.apiKey, "vcr_sk_x");

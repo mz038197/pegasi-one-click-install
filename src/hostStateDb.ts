@@ -3,6 +3,19 @@ import {
   CLASSROOM_CHAT_LM_SECRET_KEY,
 } from "./hostLmSecret";
 
+/** Busy wait budget when Host also holds state.vscdb. */
+export const HOST_STATE_DB_BUSY_TIMEOUT_MS = 3000;
+
+/** True when SQLite reports the Host DB is contended. */
+export function isHostStateDbBusyError(err: unknown): boolean {
+  const message = (err instanceof Error ? err.message : String(err)).toLowerCase();
+  return (
+    message.includes("database is locked") ||
+    message.includes("database is busy") ||
+    message.includes("sqlite_busy")
+  );
+}
+
 /** Path to Host globalStorage/state.vscdb from the editor User dir. */
 export function hostStateDbPath(userDir: string): string {
   return path.join(userDir, "globalStorage", "state.vscdb");
@@ -44,11 +57,17 @@ async function openStateDb(dbPath: string): Promise<SqliteDatabase> {
     // Experimental in Node; present on current VS Code / system Node used for tests.
     const DatabaseSync = (
       sqlite as unknown as {
-        DatabaseSync: new (path: string) => SqliteDatabase;
+        DatabaseSync: new (
+          path: string,
+          options?: { timeout?: number },
+        ) => SqliteDatabase;
       }
     ).DatabaseSync;
-    return new DatabaseSync(dbPath);
+    return new DatabaseSync(dbPath, { timeout: HOST_STATE_DB_BUSY_TIMEOUT_MS });
   } catch (err) {
+    if (isHostStateDbBusyError(err)) {
+      throw err;
+    }
     const message = err instanceof Error ? err.message : String(err);
     throw new Error(
       `無法開啟 Host state.vscdb（需要 node:sqlite）：${message}`,

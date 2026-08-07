@@ -33,6 +33,7 @@ import {
 } from "./sidebarCommands";
 import { SidebarWebviewProvider } from "./sidebarWebviewProvider";
 import {
+  clearClassroomConnectionBusyMessage,
   clearClassroomConnectionConfirmMessage,
   selectClassroomChatProviderHint,
 } from "./studentCopy";
@@ -42,6 +43,7 @@ const API_KEY_SECRET = "classroomApiKey";
 const BYOK_RESTART_MESSAGE = `BYOK 已寫入。請重新啟動 VS Code（勿只按重載視窗），再開啟後${selectClassroomChatProviderHint()}。`;
 const CLEAR_RESTART_MESSAGE =
   "已清除課堂連線。請重新啟動 VS Code，變更才會穩定生效。";
+const CLEAR_BUSY_RESTART_MESSAGE = clearClassroomConnectionBusyMessage();
 const RESTART_ACTION = "重新啟動";
 const LATER_ACTION = "稍後";
 
@@ -128,6 +130,10 @@ export function activate(context: vscode.ExtensionContext): void {
         await markPendingHostByok();
       }
       await offerFullRestart(restartMessage);
+      return;
+    }
+    if (result.offerRestart) {
+      await offerFullRestart(restartMessage);
     }
   };
 
@@ -170,7 +176,13 @@ export function activate(context: vscode.ExtensionContext): void {
           );
         }
         reloadCatalog();
-        await afterRouterAction(result, CLEAR_RESTART_MESSAGE, false);
+        await afterRouterAction(
+          result,
+          result.offerRestart
+            ? CLEAR_BUSY_RESTART_MESSAGE
+            : CLEAR_RESTART_MESSAGE,
+          false,
+        );
       },
       routerHandoffPaste: async (raw) => {
         const result = await routerLane.acceptHandoffInput(raw);

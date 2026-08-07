@@ -34,6 +34,6 @@ describe("writeByokFile", () => {
     assert.match(target, /chatLanguageModels\.json$/);
     const written = JSON.parse(files.get(target) ?? "null");
     assert.equal(written[0].apiKey, "${input:chat.lm.secret.-7a55c1a5}");
-    assert.equal(written[0].name, "VCRouter");
+    assert.equal(written[0].name, "Pegasi Router");
   });
 });
