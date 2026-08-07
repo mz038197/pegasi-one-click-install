@@ -44,6 +44,12 @@ https://marketplace.visualstudio.com/manage/publishers/vans-coding
    - **Scopes**：Custom defined → **Show all scopes** → **Marketplace** →勾選 **Manage**（會一併帶上 Publish／Read）
 3. **Create** 後立刻複製 token（只顯示一次）。**不要把 token 貼進聊天或 commit。**
 
+> **⚠ Global PAT 淘汰（必記）**  
+> Azure DevOps 將淘汰 Organization＝**All accessible organizations** 的 Global PAT（官方：[Retirement of Global PATs](https://aka.ms/GlobalPATDeprecation)）。  
+> - **2026-12-01 起**：既有 Global PAT **全部失效**；本 repo（與凡思 `classroom-one-click-install`）的 `VSCE_PAT` 若仍是 Global，Publish Extension 會 401。  
+> - 與擴充本體／市集已上架版本無關，只影響之後用該 token 發版的 CI。  
+> - **2026 年底前必做**：改發 **單一 org**（例如 `mz038197`）的 PAT（或當時可用的 Entra／短效驗證），分別寫入 Pegasi／凡思兩個 repo 的 `VSCE_PAT` 並用一次 `v*` tag 或 `vsce verify-pat` 驗收。單一 org 過去常 401，淘汰後必須重測；勿假設「All accessible」還能用。
+
 ### 1.4 寫入 GitHub secret
 
 同一 publisher `vans-coding` 可重用凡思 repo 的 PAT（Marketplace Manage）。在有 `gh` 登入、且對本 repo 有 admin 權限的本機終端：
@@ -110,12 +116,13 @@ git push origin v0.1.1
 - 接近或已過 **Expiration**（例如當初選 30 天）
 - token 曾外洩（聊天、截圖、log）
 - 撤銷舊 token 後 CI 失敗
+- **逼近／已過 2026-12-01**：必須離開 Global PAT（見「1.3」淘汰說明）；Pegasi 與凡思 repo 的 secret **各自獨立**，兩邊都要重設
 
 步驟：
 
 1. 到 `https://dev.azure.com/ORG/_usersSettings/tokens` **Revoke** 舊 token（可選）。
-2. 依「1.3」建新 PAT（同樣：All accessible organizations + Marketplace Manage）。
-3. 再執行一次 `gh secret set VSCE_PAT --repo mz038197/pegasi-one-click-install`（覆寫 secret）。
+2. 依「1.3」建新 PAT（目前實務：All accessible organizations + Marketplace Manage；**2026-12-01 前**改為單一 org 或官方替代方案並重測）。
+3. 再執行一次 `gh secret set VSCE_PAT --repo mz038197/pegasi-one-click-install`（覆寫 secret）。凡思發行另設 `mz038197/classroom-one-click-install`。
 4. 用 `vsce verify-pat` 或下一輪 `v*` tag 驗證 Actions。
 
 ---
@@ -124,7 +131,8 @@ git push origin v0.1.1
 
 | 現象 | 可能原因 | 處理 |
 |---|---|---|
-| Actions：`Personal Access Token verification has failed` / 401 | secret 空、過期、或 Organization 不是 All accessible organizations；scope 不足 | 重建 PAT（Manage）並重設 `VSCE_PAT` |
+| Actions：`Personal Access Token verification has failed` / 401 | secret 空、過期、scope 不足；或仍用已淘汰的 Global PAT（All accessible organizations，**2026-12-01 後**） | 重建 PAT（Marketplace Manage）並重設 `VSCE_PAT`；見「1.3」Global PAT 說明 |
+| 2026-12-01 後發版突然 401，token 未過期 | Global PAT 已被 Azure 停用 | 改單一 org（或 Entra）PAT，Pegasi／凡思 secret 都要換 |
 | Actions：tag 與 version 不符 | tag `v0.1.1` 但 `package.json` 仍是 `0.1.0` | 對齊後重打新 tag（勿重用已推送的錯誤 tag 內容除非 force，一般改 version 再打新 tag） |
 | 市集公開頁 404，管理頁顯示 Verifying | 首次／更新後審核中 | 等 Verifying 結束；課堂可暫時用 Release `.vsix` |
 | 想釘課堂版本 | 市集會自動更新 | 發當日 GitHub Release 的 `.vsix` 側載 |
